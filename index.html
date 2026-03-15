@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Software Engineering – Exam Crash Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #161a23;
+    --card: #1e2333;
+    --border: #2a3050;
+    --accent1: #6ee7b7;  /* teal */
+    --accent2: #f59e0b;  /* amber */
+    --accent3: #a78bfa;  /* violet */
+    --accent4: #f87171;  /* red */
+    --accent5: #38bdf8;  /* sky */
+    --text: #e2e8f0;
+    --muted: #8892a4;
+    --highlight: #fef08a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #1a1f35 0%, #0d0f14 100%);
+    border-bottom: 2px solid var(--border);
+    padding: 20px 24px 0;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  }
+  .header-top {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 12px;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.4rem;
+    background: linear-gradient(90deg, var(--accent1), var(--accent5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .sos-badge {
+    background: var(--accent4); color: #fff;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.72rem; padding: 3px 10px; border-radius: 20px;
+    letter-spacing: 0.1em; animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+  .tabs {
+    display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    background: none; border: none;
+    padding: 10px 16px;
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.78rem;
+    color: var(--muted); cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap; transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent1); border-bottom-color: var(--accent1); }
+
+  /* CONTENT */
+  .content { max-width: 960px; margin: 0 auto; padding: 28px 20px 60px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 1.8rem; margin-bottom: 6px;
+    background: linear-gradient(90deg, var(--accent1) 0%, var(--accent5) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .section-sub {
+    color: var(--muted); font-size: 0.9rem; margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px; margin-bottom: 18px;
+  }
+  .card-title {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+    color: var(--accent2); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title .num {
+    background: var(--accent2); color: #0d0f14;
+    width: 22px; height: 22px; border-radius: 50%;
+    font-size: 0.72rem; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88rem; }
+  th {
+    background: rgba(110,231,183,0.15); color: var(--accent1);
+    font-family: 'Syne', sans-serif; font-weight: 600;
+    padding: 9px 12px; text-align: left; border-bottom: 2px solid var(--border);
+  }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* BADGES */
+  .badge {
+    display: inline-block; padding: 2px 9px; border-radius: 12px;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500;
+  }
+  .badge-green { background: rgba(110,231,183,0.15); color: var(--accent1); }
+  .badge-red { background: rgba(248,113,113,0.15); color: var(--accent4); }
+  .badge-amber { background: rgba(245,158,11,0.15); color: var(--accent2); }
+  .badge-violet { background: rgba(167,139,250,0.15); color: var(--accent3); }
+  .badge-sky { background: rgba(56,189,248,0.15); color: var(--accent5); }
+
+  /* MEMORY TRICK */
+  .memory {
+    background: rgba(254,240,138,0.06);
+    border-left: 4px solid var(--highlight);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px; margin: 12px 0;
+    font-size: 0.88rem;
+  }
+  .memory strong { color: var(--highlight); font-family: 'Syne', sans-serif; }
+
+  /* DEFINITION GRID */
+  .def-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  @media(max-width:640px){ .def-grid { grid-template-columns: 1fr; } }
+  .def-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border); border-radius: 8px; padding: 12px;
+  }
+  .def-item .term {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.85rem; color: var(--accent3); margin-bottom: 4px;
+  }
+  .def-item p { font-size: 0.84rem; color: var(--text); }
+
+  /* SCALE */
+  .scale {
+    display: flex; gap: 4px; flex-wrap: wrap; margin: 12px 0; align-items: center;
+  }
+  .scale-item {
+    padding: 5px 12px; border-radius: 6px;
+    font-size: 0.8rem; font-family: 'DM Mono', monospace;
+    border: 1px solid var(--border);
+  }
+  .arrow { color: var(--muted); font-size: 1rem; }
+
+  /* LIST CLEAN */
+  ul.clean { list-style: none; padding: 0; }
+  ul.clean li {
+    padding: 5px 0 5px 20px; position: relative; font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  ul.clean li::before {
+    content: '▸'; position: absolute; left: 0;
+    color: var(--accent1); font-size: 0.75rem; top: 7px;
+  }
+
+  /* HIGHLIGHT */
+  mark {
+    background: rgba(254,240,138,0.2);
+    color: var(--highlight); border-radius: 3px; padding: 0 3px;
+  }
+
+  /* ACCORDION */
+  .acc { margin-bottom: 8px; }
+  .acc-head {
+    background: var(--surface);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 16px; cursor: pointer;
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem;
+    color: var(--text); display: flex; justify-content: space-between;
+    align-items: center; transition: background 0.2s;
+  }
+  .acc-head:hover { background: var(--card); }
+  .acc-head.open { border-color: var(--accent1); color: var(--accent1); border-radius: 8px 8px 0 0; }
+  .acc-body {
+    display: none; background: var(--card);
+    border: 1px solid var(--accent1); border-top: none;
+    border-radius: 0 0 8px 8px; padding: 14px 16px;
+    font-size: 0.88rem;
+  }
+  .acc-body.open { display: block; }
+  .chevron { transition: transform 0.2s; }
+  .open .chevron { transform: rotate(180deg); }
+
+  /* FLOW */
+  .flow {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    align-items: center; margin: 12px 0;
+  }
+  .flow-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 12px; font-size: 0.82rem;
+    font-family: 'DM Mono', monospace;
+  }
+  .flow-box.hi { border-color: var(--accent5); color: var(--accent5); }
+  .flow-arrow { color: var(--accent1); font-size: 1.1rem; }
+
+  /* EXAM TIP */
+  .exam-tip {
+    background: rgba(167,139,250,0.08);
+    border: 1px dashed var(--accent3);
+    border-radius: 10px; padding: 14px 16px; margin: 14px 0;
+    font-size: 0.87rem;
+  }
+  .exam-tip strong { color: var(--accent3); font-family: 'Syne', sans-serif; }
+
+  p { margin-bottom: 8px; font-size: 0.92rem; }
+  h3 {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 1rem; color: var(--accent5);
+    margin: 18px 0 8px;
+  }
+  h4 {
+    font-family: 'Syne', sans-serif; font-weight: 600;
+    font-size: 0.9rem; color: var(--accent2);
+    margin: 12px 0 6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="logo">SE Crash Guide</div>
+    <div class="sos-badge">⚡ EXAM IN 2H</div>
+  </div>
+  <nav class="tabs">
+    <button class="tab-btn active" onclick="showTab('sys')">1. System Modeling</button>
+    <button class="tab-btn" onclick="showTab('design')">2. Design Concepts</button>
+    <button class="tab-btn" onclick="showTab('cc')">3. Coupling & Cohesion</button>
+    <button class="tab-btn" onclick="showTab('arch')">4. Architecture</button>
+    <button class="tab-btn" onclick="showTab('dd')">5. Detailed Design</button>
+    <button class="tab-btn" onclick="showTab('ui')">6. UI Design</button>
+    <button class="tab-btn" onclick="showTab('test')">7. Testing</button>
+    <button class="tab-btn" onclick="showTab('qa')">🎯 Exam Q&A</button>
+  </nav>
+</div>
+
+<div class="content">
+
+<!-- ===================== TAB 1: SYSTEM MODELING ===================== -->
+<div id="tab-sys" class="tab-panel active">
+  <div class="section-title">System Modeling</div>
+  <div class="section-sub">Requirements Specification, DFD, State Machines, Context Models</div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> What is System Modeling?</div>
+    <p>System modeling helps analysts understand functionality and communicate with customers. It creates abstract descriptions of a system from <mark>different perspectives</mark>.</p>
+    <div class="def-grid">
+      <div class="def-item"><div class="term">External Perspective</div><p>Shows system <strong>context/environment</strong> – what lies outside the system</p></div>
+      <div class="def-item"><div class="term">Behavioural Perspective</div><p>Shows <strong>what the system does</strong> – how it behaves</p></div>
+      <div class="def-item"><div class="term">Structural Perspective</div><p>Shows <strong>system architecture</strong> – components and data structures</p></div>
+      <div class="def-item"><div class="term">Data Processing Model</div><p>Shows how data is <strong>processed at different stages</strong></p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> Context Models</div>
+    <p>Show the <mark>operational context</mark> of a system — what lies outside the system boundaries. Architectural models show the system and its relationship with other systems.</p>
+    <div class="memory"><strong>🧠 Remember:</strong> Context model = big picture. "What's around my system?"</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">3</span> Data Flow Diagrams (DFD)</div>
+    <p>A DFD is a visual representation of <mark>information flows</mark> within a system. It shows how data enters, gets processed, and leaves the system.</p>
+    <table>
+      <tr><th>Symbol</th><th>Meaning</th></tr>
+      <tr><td><span class="badge badge-sky">Circle / Bubble</span></td><td>A <strong>Process</strong> – transforms data input to output</td></tr>
+      <tr><td><span class="badge badge-green">Curved Line / Arrow</span></td><td><strong>Data Flow</strong> – movement of data</td></tr>
+      <tr><td><span class="badge badge-amber">Parallel Lines</span></td><td><strong>Data Store</strong> – where data is stored (e.g., database)</td></tr>
+      <tr><td><span class="badge badge-violet">Rectangle</span></td><td><strong>External Entity</strong> (Source or Sink)</td></tr>
+    </table>
+    <h4>Levels of DFD</h4>
+    <div class="flow">
+      <div class="flow-box hi">Level 0 (Context)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box hi">Level 1 (Main processes)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box hi">Level 2 (Sub-processes)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box hi">Level 3 (Detail)</div>
+    </div>
+    <p style="color:var(--muted); font-size:0.84rem;">Level 0 = entire system as ONE bubble. Each level decomposes further. <mark>Inputs/outputs must be preserved across levels</mark> (called "leveling" by DeMarco).</p>
+    <div class="memory"><strong>🧠 Key Rule:</strong> DFD ≠ Flowchart. No decision diamonds! No ordering of events. Just data flow.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">4</span> State Machine Models</div>
+    <p>Models system behaviour in response to <mark>external and internal events</mark>. Used for real-time systems. States = nodes, Events = arcs.</p>
+    <p>Example: Microwave oven – States: <span class="badge badge-green">Idle</span> → <span class="badge badge-amber">Heating</span> → <span class="badge badge-violet">Done</span></p>
+    <p>Example: Traffic Light – <span class="badge badge-green">Green</span> → <span class="badge badge-amber">Yellow</span> → <span class="badge badge-red">Red</span> → <span class="badge badge-green">Green</span></p>
+    <div class="memory"><strong>🧠 Remember:</strong> State machines answer "What happens when an event occurs?" – system moves from one state to another.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">5</span> Requirements Elicitation & Validation</div>
+    <h4>Elicitation Techniques</h4>
+    <ul class="clean">
+      <li><strong>Interviews</strong> – Direct questions to stakeholders</li>
+      <li><strong>Questionnaires/Surveys</strong> – Structured data collection</li>
+      <li><strong>Observation</strong> – Watch how users actually work</li>
+      <li><strong>Prototyping</strong> – Build a mock to gather feedback</li>
+      <li><strong>Workshops/Brainstorming</strong> – Group discussion</li>
+      <li><strong>Document Analysis</strong> – Study existing manuals/specs</li>
+    </ul>
+    <h4>Requirements Validation</h4>
+    <ul class="clean">
+      <li><strong>Reviews/Inspections</strong> – Team reads and checks requirements</li>
+      <li><strong>Prototyping</strong> – Validate by showing stakeholders</li>
+      <li><strong>Test-case generation</strong> – If you can test it, the requirement is clear</li>
+    </ul>
+    <h4>Agile Requirements Management</h4>
+    <ul class="clean">
+      <li>Requirements in <strong>User Stories</strong> (As a user, I want... so that...)</li>
+      <li>Stored in <strong>Product Backlog</strong>, prioritized by customer</li>
+      <li>Requirements can <strong>change between sprints</strong> — Agile embraces change</li>
+      <li>No big requirements document upfront — iterative</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== TAB 2: DESIGN CONCEPTS ===================== -->
+<div id="tab-design" class="tab-panel">
+  <div class="section-title">Design Concepts & Principles</div>
+  <div class="section-sub">Abstraction, Modularity, Refinement, Top-Down, Bottom-Up, OO Design</div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> Abstraction</div>
+    <p>A tool that lets a designer consider a component <mark>without knowing its internal details</mark>.</p>
+    <div class="def-grid">
+      <div class="def-item">
+        <div class="term">Functional Abstraction</div>
+        <p>Module specified by <strong>what it does</strong>, not how. Basis for <strong>Function-Oriented Design</strong>.</p>
+      </div>
+      <div class="def-item">
+        <div class="term">Data Abstraction</div>
+        <p>Details of data are hidden from users. Basis for <strong>Object-Oriented Design</strong>.</p>
+      </div>
+    </div>
+    <div class="memory"><strong>🧠 Analogy:</strong> You drive a car without knowing how the engine works. That's abstraction.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> Modularity</div>
+    <p>Dividing software into <mark>separate, independent modules</mark> that are integrated to form the complete system.</p>
+    <h4>Properties of a Good Module</h4>
+    <ul class="clean">
+      <li>Well-defined, single specified objective</li>
+      <li>Can be compiled and tested independently</li>
+      <li>Easier to use than to build</li>
+      <li>Simpler from outside than inside</li>
+    </ul>
+    <h4>Benefits</h4>
+    <ul class="clean">
+      <li>Easy to understand, test, maintain, and modify</li>
+      <li>Multiple developers can work in parallel</li>
+      <li>Enables code reuse</li>
+    </ul>
+    <div class="exam-tip"><strong>⚠️ Exam Note:</strong> More modules = more communication between them = more complexity. There's an optimal number of modules. "If we modularize more, the effort associated with interfaces rises."</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">3</span> Refinement</div>
+    <p>Stepwise refinement = <mark>progressively elaborating details</mark> of a design. Start at a high level (abstract) and work down to implementation details.</p>
+    <div class="memory"><strong>🧠 Think of it like:</strong> First you draw the outline of a painting, then fill in details layer by layer.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">4</span> Design Strategies</div>
+    <div class="def-grid">
+      <div class="def-item">
+        <div class="term">Top-Down Approach</div>
+        <p>Start with <strong>main components</strong>, decompose into sub-components. Good for <strong>new systems</strong>.</p>
+        <p style="color:var(--muted); font-size:0.8rem;">Main Module → Sub-modules → Details</p>
+      </div>
+      <div class="def-item">
+        <div class="term">Bottom-Up Approach</div>
+        <p>Start with <strong>lower-level details</strong>, build up to the main system. Good for <strong>existing systems</strong>.</p>
+        <p style="color:var(--muted); font-size:0.8rem;">Details → Sub-modules → Main Module</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">5</span> Object-Oriented Design (OOD)</div>
+    <p>Decomposes a system into interacting <mark>objects with well-defined interfaces</mark>. Key concepts:</p>
+    <ul class="clean">
+      <li><strong>Class</strong> – Blueprint for objects (attributes + methods)</li>
+      <li><strong>Object</strong> – Instance of a class</li>
+      <li><strong>Encapsulation</strong> – Data hiding inside objects</li>
+      <li><strong>Inheritance</strong> – Child class inherits from parent</li>
+      <li><strong>Polymorphism</strong> – Same interface, different behaviour</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">6</span> Refactoring</div>
+    <p>Improving the <mark>internal structure</mark> of code without changing its external behaviour. Goal: reduce complexity, improve readability, reduce duplication.</p>
+    <div class="memory"><strong>🧠 Simple rule:</strong> Same output, cleaner code. Like cleaning your room — nothing new added, just better organized.</div>
+  </div>
+</div>
+
+<!-- ===================== TAB 3: COUPLING & COHESION ===================== -->
+<div id="tab-cc" class="tab-panel">
+  <div class="section-title">Coupling & Cohesion</div>
+  <div class="section-sub">The most important design quality metrics — know ALL types!</div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">★</span> The Golden Rule</div>
+    <p style="font-size:1rem; color:var(--accent1)"><strong>AIM FOR: Low Coupling + High Cohesion</strong></p>
+    <p>Low coupling = modules are <mark>independent</mark>. High cohesion = module does <mark>one focused thing</mark>.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> Coupling – Worst to Best</div>
+    <div class="scale">
+      <span class="scale-item" style="background:rgba(248,113,113,0.2);border-color:var(--accent4);color:var(--accent4)">Content (WORST)</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="background:rgba(245,158,11,0.15);border-color:var(--accent2);color:var(--accent2)">Common</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="background:rgba(245,158,11,0.1);border-color:var(--accent2);color:var(--accent2)">External</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="background:rgba(167,139,250,0.15);border-color:var(--accent3);color:var(--accent3)">Control</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="background:rgba(56,189,248,0.15);border-color:var(--accent5);color:var(--accent5)">Stamp</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="background:rgba(110,231,183,0.2);border-color:var(--accent1);color:var(--accent1)">Data (BEST)</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="background:rgba(110,231,183,0.3);border-color:var(--accent1);color:var(--accent1)">No Coupling (ideal)</span>
+    </div>
+
+    <table>
+      <tr><th>Type</th><th>What happens</th><th>Analogy</th></tr>
+      <tr>
+        <td><span class="badge badge-red">Content (WORST)</span></td>
+        <td>Module directly modifies another's <strong>internal code/data</strong></td>
+        <td>Reading someone's diary and changing entries</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-amber">Common</span></td>
+        <td>Both modules share a <strong>global variable</strong></td>
+        <td>Everyone writes on same whiteboard — chaos</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-amber">External</span></td>
+        <td>Modules share <strong>externally imposed formats</strong> (device, protocol)</td>
+        <td>Two programs must use the same file format</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-violet">Control</span></td>
+        <td>One module passes a <strong>flag/switch</strong> that controls another's logic</td>
+        <td>Telling a cook: "if flag=1 add cheese, if flag=2 add sauce"</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-sky">Stamp</span></td>
+        <td>Passes <strong>whole object/structure</strong> when only part is needed</td>
+        <td>Giving your whole wallet to someone who needs one coin</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-green">Data (BEST)</span></td>
+        <td>Passes only <strong>necessary simple parameters</strong></td>
+        <td>Telling taxi: "Take me to airport" — clean, minimal</td>
+      </tr>
+    </table>
+    <div class="memory"><strong>🧠 Memory trick:</strong> <mark>C C E C S D</mark> → "Can Cats Ever Chase Small Dogs?" (worst → best)</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> Cohesion – Worst to Best</div>
+    <div class="scale">
+      <span class="scale-item" style="background:rgba(248,113,113,0.2);border-color:var(--accent4);color:var(--accent4)">Coincidental (WORST)</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="border-color:var(--accent2);color:var(--accent2)">Logical</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="border-color:var(--accent2);color:var(--accent2)">Temporal</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="border-color:var(--accent3);color:var(--accent3)">Procedural</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="border-color:var(--accent5);color:var(--accent5)">Communicational</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="border-color:var(--accent5);color:var(--accent5)">Sequential</span>
+      <span class="arrow">→</span>
+      <span class="scale-item" style="background:rgba(110,231,183,0.2);border-color:var(--accent1);color:var(--accent1)">Functional (BEST)</span>
+    </div>
+
+    <table>
+      <tr><th>Type</th><th>What it means</th><th>Example</th></tr>
+      <tr>
+        <td><span class="badge badge-red">Coincidental (WORST)</span></td>
+        <td>Random unrelated tasks in one module</td>
+        <td>A drawer with socks, batteries, receipts, screwdriver</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-amber">Logical</span></td>
+        <td>Similar category tasks, one selected by a flag</td>
+        <td>A module for all "input operations" — but flag picks which</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-amber">Temporal</span></td>
+        <td>Tasks grouped because they run at the <strong>same time</strong></td>
+        <td>System initialization: clear variables, open files, set counters</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-violet">Procedural</span></td>
+        <td>Tasks follow a <strong>sequence</strong> (not all related but ordered)</td>
+        <td>Recipe steps — must be in order</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-sky">Communicational</span></td>
+        <td>All functions operate on <strong>same data</strong></td>
+        <td>Everything in a student record about one student</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-sky">Sequential</span></td>
+        <td>Output of one part = input to the next</td>
+        <td>Assembly line: cut → polish → paint</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-green">Functional (BEST)</span></td>
+        <td>ONE module = ONE clear responsibility</td>
+        <td>A toaster — it only toasts. That's it.</td>
+      </tr>
+    </table>
+    <div class="memory"><strong>🧠 Memory trick:</strong> <mark>C L T P C S F</mark> → "Cats Love To Play, Cats Stay Friendly" (worst → best)</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">3</span> Quick Identification Tricks</div>
+    <ul class="clean">
+      <li>Sees <strong>global variable shared</strong>? → Common Coupling</li>
+      <li>Module changes <strong>another module's code/data</strong>? → Content Coupling</li>
+      <li>Passes <strong>flag/boolean to control logic</strong>? → Control Coupling</li>
+      <li>Passes <strong>whole struct/object</strong> but uses part? → Stamp Coupling</li>
+      <li>Passes <strong>only needed parameters</strong>? → Data Coupling</li>
+      <li>Module depends on <strong>interface</strong>? → Low coupling (good!)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== TAB 4: ARCHITECTURAL DESIGN ===================== -->
+<div id="tab-arch" class="tab-panel">
+  <div class="section-title">Architectural Design</div>
+  <div class="section-sub">System structure, architectural styles, and patterns</div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> What is Architectural Design?</div>
+    <p>The process of identifying <mark>sub-systems and their interactions</mark>. It's an early design stage — the link between specification and detailed design.</p>
+    <h4>Key Architectural Attributes (Performance vs Quality)</h4>
+    <table>
+      <tr><th>Quality</th><th>Architectural Solution</th></tr>
+      <tr><td>Performance</td><td>Minimize sub-system communication; localize operations</td></tr>
+      <tr><td>Security</td><td>Layered architecture; critical assets in <strong>inner layers</strong></td></tr>
+      <tr><td>Safety</td><td>Isolate safety-critical components</td></tr>
+      <tr><td>Availability</td><td>Include <strong>redundant</strong> components</td></tr>
+      <tr><td>Maintainability</td><td>Fine-grained, self-contained components</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> Architectural Styles / Patterns</div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">Repository Model <span class="chevron">▼</span></div>
+      <div class="acc-body">
+        <p>All sub-systems share data through a <mark>central repository/database</mark>.</p>
+        <p><strong>✅ Advantages:</strong> Efficient data sharing, centralized management (backups, security), published schema.</p>
+        <p><strong>❌ Disadvantages:</strong> All must agree on data model, difficult to distribute, expensive evolution.</p>
+        <p><strong>Example:</strong> IDE tools (compiler, editor, debugger) all sharing a code repository.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">Client-Server Architecture <span class="chevron">▼</span></div>
+      <div class="acc-body">
+        <p>Distributed model: <mark>clients call services provided by servers</mark> over a network.</p>
+        <p><strong>✅ Advantages:</strong> Easy to add/upgrade servers, effective use of network, scalable.</p>
+        <p><strong>❌ Disadvantages:</strong> No shared data model, redundant management per server, no central service registry.</p>
+        <p><strong>Example:</strong> Film/photo library server serving multiple clients.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">Layered (Abstract Machine) Architecture <span class="chevron">▼</span></div>
+      <div class="acc-body">
+        <p>System organized as <mark>layers, each providing services to the layer above</mark>.</p>
+        <div class="flow">
+          <div class="flow-box hi">Presentation Layer</div>
+          <div class="flow-arrow">↔</div>
+          <div class="flow-box hi">Business Logic</div>
+          <div class="flow-arrow">↔</div>
+          <div class="flow-box hi">Data Layer</div>
+        </div>
+        <p><strong>✅ Advantages:</strong> Incremental development; changing one layer only affects adjacent layer. Good for security (critical assets in inner layers).</p>
+        <p><strong>❌ Disadvantages:</strong> Difficult to cleanly separate layers in practice.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">MVC (Model-View-Controller) <span class="chevron">▼</span></div>
+      <div class="acc-body">
+        <div class="def-grid">
+          <div class="def-item"><div class="term">Model</div><p>Data and business logic. The core data.</p></div>
+          <div class="def-item"><div class="term">View</div><p>What the user sees. UI presentation.</p></div>
+          <div class="def-item"><div class="term">Controller</div><p>Handles user input and updates Model/View.</p></div>
+        </div>
+        <p><strong>Best for:</strong> Web applications (used in Rails, Django, Spring MVC)</p>
+        <p>Supports <mark>multiple presentations of the same data</mark>.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">Microservices Architecture <span class="chevron">▼</span></div>
+      <div class="acc-body">
+        <p>System built as <mark>small, independent services</mark> each running its own process and communicating via APIs.</p>
+        <p><strong>✅ Advantages:</strong> Independent deployment, scalability per service, fault isolation, technology flexibility.</p>
+        <p><strong>❌ Disadvantages:</strong> Complex communication, distributed system challenges, operational overhead.</p>
+        <p><strong>vs Monolithic:</strong> Monolith = everything in one big app. Microservices = each feature is its own app.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">3</span> Control Models</div>
+    <div class="def-grid">
+      <div class="def-item">
+        <div class="term">Centralised Control</div>
+        <p>One sub-system controls all others. Types: <strong>Call-Return</strong> (top-down hierarchy) and <strong>Manager</strong> (concurrent systems).</p>
+      </div>
+      <div class="def-item">
+        <div class="term">Event-Based Control</div>
+        <p>Sub-systems respond to events. Types: <strong>Broadcast</strong> (any handler can respond) and <strong>Interrupt-driven</strong> (real-time, fast response).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">4</span> Modular Decomposition Models</div>
+    <div class="def-grid">
+      <div class="def-item">
+        <div class="term">Object Model</div>
+        <p>Decompose into <strong>loosely coupled objects</strong> with defined interfaces.</p>
+      </div>
+      <div class="def-item">
+        <div class="term">Data-Flow (Pipe & Filter)</div>
+        <p>Functional modules that <strong>transform inputs to outputs</strong>. Like UNIX pipes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 5: DETAILED DESIGN ===================== -->
+<div id="tab-dd" class="tab-panel">
+  <div class="section-title">Detailed Design</div>
+  <div class="section-sub">Transform Mapping, Transaction Mapping, DFD to Architecture</div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> Structured Design Overview</div>
+    <p>A <mark>data flow-oriented design method</mark> that maps DFDs into software architecture. The 6-step process:</p>
+    <div class="flow" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="badge badge-sky">1</span><span>Establish the type of information flow (transform or transaction)</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="badge badge-sky">2</span><span>Indicate flow boundaries</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="badge badge-sky">3</span><span>Map DFD into program structure</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="badge badge-sky">4</span><span>Define control hierarchy</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="badge badge-sky">5</span><span>Refine structure using design heuristics</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="badge badge-sky">6</span><span>Refine and elaborate architectural description</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> Transform Flow vs Transaction Flow</div>
+    <div class="def-grid">
+      <div class="def-item">
+        <div class="term">Transform Flow</div>
+        <p>Data flows <strong>linearly</strong> through the system — input → processing → output. Most common.</p>
+        <p style="color:var(--muted);font-size:0.8rem;">Like: Read file → Process data → Write output</p>
+      </div>
+      <div class="def-item">
+        <div class="term">Transaction Flow</div>
+        <p>A single data item can trigger <strong>multiple possible paths</strong> depending on the transaction type.</p>
+        <p style="color:var(--muted);font-size:0.8rem;">Like: A bank transaction — could go to Deposit, Withdraw, or Transfer path</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">3</span> Transform Mapping Steps</div>
+    <ul class="clean">
+      <li><strong>Review fundamental system model</strong> – context diagram (Level 0)</li>
+      <li><strong>Review & refine DFDs</strong> – produce more detail (Level 2, 3)</li>
+      <li><strong>Determine flow type</strong> – transform or transaction</li>
+      <li><strong>Isolate the transform center</strong> – find incoming/outgoing flow boundaries</li>
+      <li><strong>First-level factoring</strong> – map to top-down control structure with 3 controllers:
+        <ul style="margin-top:6px;padding-left:16px;font-size:0.85rem">
+          <li>Incoming Information Processing Controller</li>
+          <li>Transform Flow Controller</li>
+          <li>Outgoing Information Processing Controller</li>
+        </ul>
+      </li>
+      <li><strong>Second-level factoring</strong> – map individual DFD bubbles to modules</li>
+      <li><strong>Refine</strong> – apply functional independence, cohesion, minimal coupling</li>
+    </ul>
+    <div class="memory"><strong>🧠 Remember:</strong> Transform center = the "heart" of processing. Incoming = reading/converting input. Outgoing = formatting output.</div>
+  </div>
+</div>
+
+<!-- ===================== TAB 6: UI DESIGN ===================== -->
+<div id="tab-ui" class="tab-panel">
+  <div class="section-title">User Interface Design</div>
+  <div class="section-sub">Principles, Interaction Styles, Usability, Heuristics</div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> Core UI Design Principles</div>
+    <table>
+      <tr><th>Principle</th><th>Meaning</th></tr>
+      <tr><td><span class="badge badge-green">User familiarity</span></td><td>Use terms and concepts from the user's domain</td></tr>
+      <tr><td><span class="badge badge-green">Consistency</span></td><td>Same actions = same results everywhere. Same button styles.</td></tr>
+      <tr><td><span class="badge badge-green">Minimal surprise</span></td><td>System should behave as users expect</td></tr>
+      <tr><td><span class="badge badge-green">Recoverability</span></td><td>Allow undo, give warnings, confirm destructive actions</td></tr>
+      <tr><td><span class="badge badge-green">User guidance</span></td><td>On-screen help, error messages, documentation</td></tr>
+      <tr><td><span class="badge badge-green">User diversity</span></td><td>Design for different users (novice, expert, disabled)</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> Interaction Styles</div>
+    <table>
+      <tr><th>Style</th><th>Description</th><th>Best for</th></tr>
+      <tr>
+        <td><span class="badge badge-sky">Direct Manipulation</span></td>
+        <td>Drag, click, resize objects directly</td>
+        <td>Beginners; visual operations</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-violet">Menu Selection</span></td>
+        <td>Choose from a list of options</td>
+        <td>Occasional users; limited choices</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-amber">Form Fill-in</span></td>
+        <td>Fill out structured fields</td>
+        <td>Data entry; business apps</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-amber">Command Language</span></td>
+        <td>Type text commands (e.g., UNIX)</td>
+        <td>Expert/power users</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-green">Natural Language</span></td>
+        <td>Type in plain English/language</td>
+        <td>Casual users; search systems</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">3</span> Nielsen's 10 Usability Heuristics</div>
+    <ul class="clean">
+      <li><strong>Visibility of system status</strong> – Always show what's happening (progress bars, loading)</li>
+      <li><strong>Match between system and real world</strong> – Use user's language, not tech jargon</li>
+      <li><strong>User control and freedom</strong> – Undo, redo, easy exit</li>
+      <li><strong>Consistency and standards</strong> – Same words/actions mean the same thing</li>
+      <li><strong>Error prevention</strong> – Design to prevent errors before they happen</li>
+      <li><strong>Recognition over recall</strong> – Show options rather than making users remember</li>
+      <li><strong>Flexibility and efficiency</strong> – Shortcuts for experts, still usable for novices</li>
+      <li><strong>Aesthetic and minimalist design</strong> – No irrelevant information</li>
+      <li><strong>Help users recognize, diagnose, recover from errors</strong> – Clear error messages</li>
+      <li><strong>Help and documentation</strong> – Easy to search, focused on user's task</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">4</span> Information Presentation</div>
+    <div class="def-grid">
+      <div class="def-item">
+        <div class="term">Digital Display</div>
+        <p>Compact, precise values. Use when <strong>exact numbers matter</strong>.</p>
+      </div>
+      <div class="def-item">
+        <div class="term">Analogue Display</div>
+        <p>Easier to get "at a glance" impression. Shows relative values and trends.</p>
+      </div>
+    </div>
+    <h4>Colour Use Guidelines</h4>
+    <ul class="clean">
+      <li>Don't use too many colours (&lt;5 ideally)</li>
+      <li>Use colour consistently (same colour = same meaning)</li>
+      <li>Design for monochrome first, then add colour</li>
+      <li>Avoid colours that clash; be aware colour-blind users exist</li>
+      <li>Use colour <strong>change</strong> to show status change</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">5</span> Accessibility Features</div>
+    <ul class="clean">
+      <li><strong>Screen reader support</strong> – Alt text for all images</li>
+      <li><strong>High contrast mode</strong> – Clear text visibility</li>
+      <li><strong>Keyboard navigation</strong> – No mouse required</li>
+      <li><strong>Text size control</strong> – Allow font scaling</li>
+      <li><strong>Voice input/output</strong> – For motor/visual impairment</li>
+      <li><strong>Descriptive error messages</strong> – Tell users HOW to fix errors</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">6</span> Error Messages Design Rules</div>
+    <p>Good error messages must be: <mark>Polite, Concise, Consistent, Constructive</mark></p>
+    <div class="def-grid">
+      <div class="def-item" style="border-color:var(--accent4)">
+        <div class="term" style="color:var(--accent4)">❌ BAD</div>
+        <p>"FATAL ERROR: Illegal operation at 0x004a3f22"</p>
+      </div>
+      <div class="def-item" style="border-color:var(--accent1)">
+        <div class="term">✅ GOOD</div>
+        <p>"Your password must be at least 8 characters. Please try again."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 7: SOFTWARE TESTING ===================== -->
+<div id="tab-test" class="tab-panel">
+  <div class="section-title">Software Testing</div>
+  <div class="section-sub">Fundamentals, Types, Test Design, Reviews & Inspection</div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> Testing Fundamentals</div>
+    <div class="def-grid">
+      <div class="def-item">
+        <div class="term">Validation Testing</div>
+        <p>Does the software do what the <strong>customer wants</strong>? Shows software meets requirements.</p>
+      </div>
+      <div class="def-item">
+        <div class="term">Defect Testing</div>
+        <p>Finding <strong>bugs</strong>. A successful test is one that <strong>exposes a defect</strong>.</p>
+      </div>
+    </div>
+    <div class="exam-tip"><strong>⚠️ Key Statement to write:</strong> "Testing can show the <mark>presence</mark> of faults. It cannot prove there are <mark>no remaining</mark> faults. Exhaustive testing is impossible."</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> Testing Types (Hierarchy)</div>
+    <div class="flow" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="badge badge-sky">Unit/Component Testing</span>
+        <span style="font-size:0.85rem">Individual functions/methods/classes tested in isolation. Done by <strong>developer</strong>.</span>
+      </div>
+      <div style="color:var(--muted);padding-left:20px">↓</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="badge badge-violet">Integration Testing</span>
+        <span style="font-size:0.85rem">Testing components combined together. Tests <strong>interfaces between components</strong>.</span>
+      </div>
+      <div style="color:var(--muted);padding-left:20px">↓</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="badge badge-amber">System Testing</span>
+        <span style="font-size:0.85rem">Complete system tested. Done by <strong>independent team</strong>. Based on specification.</span>
+      </div>
+      <div style="color:var(--muted);padding-left:20px">↓</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="badge badge-green">Release/Acceptance Testing</span>
+        <span style="font-size:0.85rem">Testing release for customer. <strong>Black-box</strong>. Confirms customer requirements met.</span>
+      </div>
+    </div>
+    <div class="memory"><strong>🧠 Who tests what:</strong> Developer → Component; Independent team → System & Release.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">3</span> Integration Testing Approaches</div>
+    <div class="def-grid">
+      <div class="def-item">
+        <div class="term">Top-Down Integration</div>
+        <p>Start with skeleton/main framework, add components. Better for <strong>architectural validation</strong> and <strong>early demo</strong>.</p>
+      </div>
+      <div class="def-item">
+        <div class="term">Bottom-Up Integration</div>
+        <p>Start with infrastructure components, add functional ones. <strong>Easier test implementation</strong>.</p>
+      </div>
+    </div>
+    <div class="memory"><strong>🧠 Rule:</strong> Always integrate <strong>incrementally</strong> to simplify error localization.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">4</span> Test Case Design Approaches</div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">Equivalence Partitioning (Partition Testing) <span class="chevron">▼</span></div>
+      <div class="acc-body">
+        <p>Group inputs into <mark>partitions/classes</mark> where all members behave the same way. Test one value from each partition.</p>
+        <p><strong>Example:</strong> Password field (6-10 chars):</p>
+        <ul class="clean">
+          <li><span class="badge badge-green">Valid partition:</span> 6 to 10 characters → test with 8 chars</li>
+          <li><span class="badge badge-red">Invalid partition (low):</span> 0 to 5 → test with 3 chars</li>
+          <li><span class="badge badge-red">Invalid partition (high):</span> 11+ → test with 15 chars</li>
+          <li><span class="badge badge-amber">Boundary values:</span> 5, 6, 10, 11 (test the edges!)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">Structural Testing (White-Box) <span class="chevron">▼</span></div>
+      <div class="acc-body">
+        <p>Uses <mark>knowledge of program code</mark> to derive test cases. Goal: exercise all program statements.</p>
+        <p><strong>Path Testing:</strong> Ensure every path through the code is executed at least once. Uses a <strong>flow graph</strong> (nodes = decisions, arcs = control flow).</p>
+        <p><strong>Cyclomatic Complexity = E − N + 2P</strong></p>
+        <p style="color:var(--muted);font-size:0.84rem;">E = edges, N = nodes, P = nodes with exit points. Gives minimum number of test cases needed.</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">Black-Box Testing (Functional) <span class="chevron">▼</span></div>
+      <div class="acc-body">
+        <p>Tests based on <mark>specification only</mark> — no knowledge of internal code. Used in Release Testing.</p>
+        <p>Testers just know: given input X, expected output is Y.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">5</span> Special Testing Types</div>
+    <table>
+      <tr><th>Type</th><th>What it tests</th></tr>
+      <tr><td><span class="badge badge-violet">Performance Testing</span></td><td>System performance under increasing load — find the breaking point</td></tr>
+      <tr><td><span class="badge badge-red">Stress Testing</span></td><td>Push system <strong>beyond maximum design load</strong> — test failure behaviour</td></tr>
+      <tr><td><span class="badge badge-sky">Interface Testing</span></td><td>Find defects in interfaces between components — check parameter passing</td></tr>
+      <tr><td><span class="badge badge-amber">Object Class Testing</span></td><td>Test all operations, attributes, states of an object/class</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">6</span> Reviews, Inspection & Auditing</div>
+    <div class="def-grid">
+      <div class="def-item">
+        <div class="term">Review</div>
+        <p>Team examines software artifacts (requirements, design, code) to find defects. <strong>No testing involved.</strong></p>
+      </div>
+      <div class="def-item">
+        <div class="term">Inspection</div>
+        <p>Formal review with defined <strong>roles</strong> (moderator, reviewer, author). Follows a structured process with defect checklist.</p>
+      </div>
+      <div class="def-item">
+        <div class="term">Audit</div>
+        <p>Independent check to ensure <strong>processes and standards</strong> are being followed.</p>
+      </div>
+      <div class="def-item">
+        <div class="term">Test Automation</div>
+        <p>Use tools (e.g., JUnit) to automatically run tests. Reduces cost. Most testing workbenches are open systems.</p>
+      </div>
+    </div>
+    <div class="memory"><strong>🧠 Key benefit of reviews:</strong> Find defects <strong>early</strong> (before coding). Cheaper to fix at requirements stage than at testing stage.</div>
+  </div>
+</div>
+
+<!-- ===================== TAB 8: EXAM Q&A ===================== -->
+<div id="tab-qa" class="tab-panel">
+  <div class="section-title">🎯 Exam Q&A</div>
+  <div class="section-sub">Ready-to-write answers for likely exam questions — based on your exercise sheets</div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">Q1</span> Which architecture for a University LMS with thousands of users?</div>
+    <p><strong>Answer: Microservices Architecture</strong></p>
+    <ul class="clean">
+      <li><strong>Scalability:</strong> Each service (videos, assignments, exams) scales independently based on demand</li>
+      <li><strong>Fault isolation:</strong> If the video service fails, exam system still works</li>
+      <li><strong>Independent deployment:</strong> Teams can update the assignment service without affecting others</li>
+      <li><strong>Technology flexibility:</strong> Video streaming can use different tech from the exam module</li>
+    </ul>
+    <div class="exam-tip"><strong>Tip:</strong> Also acceptable: Client-Server for simplicity, or MVC for structure. But microservices is best for "thousands of simultaneous users."</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">Q2</span> Why is consistency important in UI design?</div>
+    <ul class="clean">
+      <li><strong>Reduces learning time</strong> – Users learn once and apply knowledge everywhere</li>
+      <li><strong>Prevents errors</strong> – Different patterns for same action confuse users</li>
+      <li><strong>Builds user confidence</strong> – Predictable behaviour makes users feel in control</li>
+      <li><strong>Supports recognition over recall</strong> – Users recognize familiar patterns</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">Q3</span> Classify coupling: worst to best from given examples</div>
+    <p>Given (from your exercise PDF):</p>
+    <ol style="padding-left:20px;font-size:0.9rem;line-height:2">
+      <li>Module modifies another's private data → <span class="badge badge-red">Content Coupling (WORST)</span></li>
+      <li>Two modules share a global variable → <span class="badge badge-amber">Common Coupling</span></li>
+      <li>Module passes a control flag → <span class="badge badge-violet">Control Coupling</span></li>
+      <li>Module passes only necessary parameters → <span class="badge badge-green">Data Coupling</span></li>
+      <li>Module depends on an interface → <span class="badge badge-green">No/Low Coupling (BEST)</span></li>
+    </ol>
+    <p><strong>Ranking (worst→best): 1 → 2 → 3 → 4 → 5</strong></p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">Q4</span> Identify usability heuristics violated: "Important messages in small gray text at bottom"</div>
+    <ul class="clean">
+      <li><strong>Visibility of system status</strong> – Important info must be visible, not hidden</li>
+      <li><strong>Aesthetic and minimalist design</strong> – Important content should NOT be buried with irrelevant content</li>
+      <li><strong>User guidance</strong> – Users need clear guidance, small gray text is unreadable</li>
+      <li><strong>Accessibility</strong> – Violates accessibility for visually impaired users</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">Q5</span> Layered architecture: Identify style and benefits</div>
+    <p>The style is: <mark>Layered Architecture (Abstract Machine Model)</mark></p>
+    <ul class="clean">
+      <li><strong>Maintainability:</strong> Changing one layer only affects the adjacent layer, not the whole system</li>
+      <li><strong>Reusability:</strong> Each layer can be reused with different upper/lower layers</li>
+      <li><strong>Separation of concerns:</strong> Presentation logic separate from business logic and data</li>
+      <li><strong>Testability:</strong> Each layer can be tested independently</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">Q6</span> What is the difference between testing and inspection?</div>
+    <table>
+      <tr><th></th><th>Testing</th><th>Inspection</th></tr>
+      <tr><td>How</td><td>Execute the program</td><td>Read/review documents</td></tr>
+      <tr><td>When</td><td>After code is written</td><td>Any stage (requirements, design, code)</td></tr>
+      <tr><td>Who</td><td>Testers/developers</td><td>Structured team with defined roles</td></tr>
+      <tr><td>Goal</td><td>Find runtime defects</td><td>Find logic/design/specification errors</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">Q7</span> 3 UI techniques to reduce wrong travel date entry</div>
+    <ul class="clean">
+      <li><strong>Date picker / Calendar widget</strong> – Visual selection prevents format errors</li>
+      <li><strong>Validation with real-time feedback</strong> – Highlight invalid dates immediately (past dates, departure after return)</li>
+      <li><strong>Confirmation screen</strong> – Show full trip summary before final booking so users can verify</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">Q8</span> Monolithic → Microservices: What's the problem and solution?</div>
+    <p><strong>Problems with Monolith at scale:</strong></p>
+    <ul class="clean">
+      <li>Single codebase becomes too large and hard to maintain</li>
+      <li>Any change requires redeploying the entire system</li>
+      <li>One component failing can crash the whole application</li>
+      <li>Cannot scale individual parts — must scale everything</li>
+    </ul>
+    <p><strong>Microservices solution:</strong></p>
+    <ul class="clean">
+      <li>Each feature (cart, payments, user auth) becomes its own service</li>
+      <li>Independent deployment and scaling per service</li>
+      <li>Teams can work independently on different services</li>
+      <li>Fault in one service doesn't bring down others</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">Q9</span> UML Relationships – Quick Guide</div>
+    <table>
+      <tr><th>Relationship</th><th>Symbol</th><th>Meaning</th><th>Example</th></tr>
+      <tr><td>Association</td><td>────</td><td>Basic connection</td><td>Student — Course</td></tr>
+      <tr><td>Aggregation</td><td>──◇</td><td>"Has-a" (can exist independently)</td><td>Department ◇── Professor</td></tr>
+      <tr><td>Composition</td><td>──◆</td><td>"Part-of" (cannot exist without whole)</td><td>University ◆── Department</td></tr>
+      <tr><td>Inheritance</td><td>──▷</td><td>"Is-a" relationship</td><td>SavingsAccount ▷ Account</td></tr>
+      <tr><td>Dependency</td><td>- - ▷</td><td>Uses another class</td><td>Transaction uses Account</td></tr>
+    </table>
+    <div class="memory"><strong>🧠 Aggregation vs Composition:</strong> Delete the university → departments gone (Composition). Delete department → professors still exist (Aggregation).</div>
+  </div>
+
+  <div class="card" style="border-color:var(--accent1)">
+    <div class="card-title" style="color:var(--accent1)">⚡ Last-Minute Key Facts to Remember</div>
+    <ul class="clean">
+      <li>Low coupling + High cohesion = <strong>GOOD design</strong></li>
+      <li>Content coupling = WORST; Data coupling = BEST</li>
+      <li>Coincidental cohesion = WORST; Functional cohesion = BEST</li>
+      <li>DFD ≠ Flowchart (no decisions, no ordering in DFD)</li>
+      <li>Testing proves presence of bugs, NOT absence</li>
+      <li>Exhaustive testing is <strong>impossible</strong></li>
+      <li>Component testing = developer; System testing = independent team</li>
+      <li>Black-box = no code knowledge; White-box = uses code structure</li>
+      <li>Equivalence partitioning: test one value per partition + boundary values</li>
+      <li>Microservices = independent services + API communication</li>
+      <li>Layered architecture = change one layer, only adjacent layer affected</li>
+      <li>MVC = Model (data), View (UI), Controller (logic/input)</li>
+      <li>State machine = states as nodes, events as arcs</li>
+      <li>Refactoring = better code structure, same external behaviour</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- end content -->
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleAcc(head) {
+  const body = head.nextElementSibling;
+  head.classList.toggle('open');
+  body.classList.toggle('open');
+}
+</script>
+</body>
+</html>
